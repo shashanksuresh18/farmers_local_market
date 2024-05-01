@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Add New Product</h1>
+    <form method="post" action="{{ url_for('add_product', vendor_id=vendor_id) }}">
+        <div class="form-group">
+            <label for="name">Product Name:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" name="description" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+        </div>
+        <div class="form-group">
+            <label for="availability">Availability:</label>
+            <select class="form-control" id="availability" name="availability" required>
+                <option value="true">Available</option>
+                <option value="false">Not Available</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="contact_email">Contact Email:</label>
+            <input type="email" class="form-control" id="contact_email" name="contact_email" required>
+        </div>
+        <div class="form-group">
+            <label for="contact_phone">Contact Phone:</label>
+            <input type="text" class="form-control" id="contact_phone" name="contact_phone" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Product</button>
+        <a href="{{ url_for('vendor_home') }}" class="btn btn-secondary">Back</a>
+    </form>
+</div>
+{% endblock %}
