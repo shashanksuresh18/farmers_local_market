@@ -1,6 +1,6 @@
 from flask import Flask, render_template, abort, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
-from models import db, User, Product, Vendor, Market, Review, vendor_markets
+from models import db, User, Product, Vendor
 from urllib.parse import quote_plus
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
@@ -11,11 +11,11 @@ app = Flask(__name__)
 # Database configuration
 # Encode special characters in your password
 username = 'admin'
-password = 'Hoskote@100'  # Example password with special character '@'
+password = 'London@100'  # Example password with special character '@'
 encoded_password = quote_plus(password)
 
 # Construct the correct URI
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://{username}:{encoded_password}@localhost/farmers_market'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://{username}:{encoded_password}@localhost/farmers_local_market'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '\x98\x8ck\xcdpl}\x1f\x8f\x0e\x15\xd8\xdeC_\xff\xfd<r\xdb\x83\xc1\x08\x18'
 
@@ -90,11 +90,10 @@ def register():
             return redirect(url_for('login'))  # Redirect to the login page or home page after registration
         except Exception as e:
             db.session.rollback()
-            flash('Error registering user. Please try again.', 'error')
-            print(e)  # For debugging purposes
-            return redirect(url_for('register'))
+            flash(f'Error registering user: {str(e)}', 'error')  # Show specific error to the developer
+            print(f"Error: {str(e)}")  # Log to console for debugging
+            return render_template('register.html', username=username, email=email, user_type=user_type)
 
-    # Show the registration form
     return render_template('register.html')
 
 
@@ -142,16 +141,36 @@ def consumer_home():
 @login_required
 def vendor_home():
     if current_user.is_authenticated and current_user.user_type == 'vendor':
+        # Attempt to find the vendor associated with the current user
         vendor = Vendor.query.filter_by(user_id=current_user.id).first()
-        is_new_vendor = vendor is None  # True if no vendor details are found
-        print(vendor)
-        products = Product.query.filter_by(vendor_id=vendor.id).all()
-        print(products)
-        # Pass both 'vendor' and 'is_new_vendor' to the template for proper handling
-        return render_template('vendor_home.html', user=current_user, vendor=vendor, is_new_vendor=is_new_vendor)
+        
+        # Check if a vendor entry exists
+        if vendor:
+            products = Product.query.filter_by(vendor_id=vendor.id).all()
+            return render_template('vendor_home.html', user=current_user, vendor=vendor, products=products, is_new_vendor=False)
+        else:
+            # No vendor found, treat as new vendor scenario or report it
+            flash('No vendor profile found. Please create your vendor profile.', 'warning')
+            return redirect(url_for('new_vendor'))  # Redirect to new vendor setup if no profile found
     else:
         flash('Unauthorized access.', 'error')
         return redirect(url_for('login'))
+
+
+# @app.route('/vendor_home')
+# @login_required
+# def vendor_home():
+#     if current_user.is_authenticated and current_user.user_type == 'vendor':
+#         vendor = Vendor.query.filter_by(user_id=current_user.id).first()
+#         is_new_vendor = vendor is None  # True if no vendor details are found
+#         print(vendor)
+#         products = Product.query.filter_by(vendor_id=vendor.id).all()
+#         print(products)
+#         # Pass both 'vendor' and 'is_new_vendor' to the template for proper handling
+#         return render_template('vendor_home.html', user=current_user, vendor=vendor, is_new_vendor=is_new_vendor)
+#     else:
+#         flash('Unauthorized access.', 'error')
+#         return redirect(url_for('login'))
 
 # @app.route('/vendor_home')
 # @login_required
@@ -193,9 +212,6 @@ def update_vendor(vendor_id):
     flash('Vendor details updated successfully!', 'success')
     return redirect(url_for('vendor_home'))
 
-from flask import request, redirect, url_for, flash, render_template
-from flask_login import login_required, current_user
-from models import db, Product
 
 @app.route('/add_product/<int:vendor_id>', methods=['GET', 'POST'])
 @login_required
@@ -258,9 +274,9 @@ def edit_product(product_id):
     return render_template('edit_product.html', product=product)
 
 
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
+# @app.route('/dashboard')
+# def dashboard():
+#     return render_template('dashboard.html')
 
 @app.route('/error')
 def error():
@@ -274,9 +290,9 @@ def logout():
     flash('You have been logged out.', 'success')
     return redirect(url_for('home'))
 
-@app.route('/markets')
-def markets():
-    return render_template('markets.html')
+# @app.route('/markets')
+# def markets():
+#     return render_template('markets.html')
 
 @app.route('/product_detail/<int:product_id>')
 def product_detail(product_id):
@@ -286,13 +302,13 @@ def product_detail(product_id):
     except Exception as e:
         abort(404)
 
-@app.route('/product_reviews/<int:product_id>')
-def product_reviews(product_id):
-    try:
-        product = Product.query.get_or_404(product_id)
-        return render_template('product_reviews.html', product=product)
-    except Exception as e:
-        abort(404)
+# @app.route('/product_reviews/<int:product_id>')
+# def product_reviews(product_id):
+#     try:
+#         product = Product.query.get_or_404(product_id)
+#         return render_template('product_reviews.html', product=product)
+#     except Exception as e:
+#         abort(404)
 
 @app.route('/products')
 def products():
@@ -310,9 +326,9 @@ def profile():
     except Exception as e:
         abort(404)
 
-@app.route('/search_results')
-def search_results():
-    return render_template('search_results.html')
+# @app.route('/search_results')
+# def search_results():
+#     return render_template('search_results.html')
 
 @app.route('/vendor_profile/<int:vendor_id>')
 def vendor_profile(vendor_id):
