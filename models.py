@@ -10,10 +10,10 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password_hash = db.Column(db.String(128), nullable=True)
+    password_hash = db.Column(db.String(512), nullable=True)
     user_type = db.Column(db.String(50), nullable=True)
-    reviews = db.relationship('Review', backref='user', lazy='dynamic')
-    vendors = db.relationship('Vendor', backref='user', lazy='dynamic')
+    # reviews = db.relationship('Review', backref='user', lazy='dynamic')
+    # vendors = db.relationship('Vendor', backref='user', lazy='dynamic')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -28,7 +28,7 @@ class Vendor(db.Model):
     location = db.Column(db.String(200))
     description = db.Column(db.Text)
     products = db.relationship('Product', backref='vendor', lazy='dynamic')
-    markets = db.relationship('Market', secondary=vendor_markets, back_populates="vendors")
+    # markets = db.relationship('Market', secondary=vendor_markets, back_populates="vendors")
 
 class Product(db.Model):
     __tablename__ = 'product'
