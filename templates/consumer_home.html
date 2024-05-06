@@ -5,5 +5,6 @@
     <h1>Welcome, Consumer {{ user.username }}</h1>
     <p>Explore products, read reviews, and purchase your needs.</p>
     <!-- Add more consumer-specific elements here -->
+    <a href="{{ url_for('products') }}" class="btn btn-primary">View Products</a>
 </div>
 {% endblock %}

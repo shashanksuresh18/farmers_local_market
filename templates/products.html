@@ -3,32 +3,41 @@
 {% block content %}
 <div class="container mt-5">
     <h2>Products</h2>
-    <div class="row">
-        {% for product in products %}
-        <div class="col-md-4 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">{{ product.description }}</p>
-                    <p class="card-text">Price: ${{ product.price }}</p>
-                    <!-- Toggle button for more info -->
-                    <button onclick="toggleInfo('{{ product.id }}')" class="btn btn-primary">More Info</button>
-                    <!-- Hidden div for contact info -->
-                    <div id="info-{{ product.id }}" style="display: none;">
-                        <p>Email: {{ product.contact_email }}</p>
-                        <p>Phone: {{ product.contact_phone }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>More Info</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>${{ product.price }}</td>
+                <td>
+                    <button onclick="toggleInfo('{{ product.id }}')" class="btn btn-primary">Contact</button>
+                </td>
+            </tr>
+            <!-- Hidden row for contact info -->
+            <tr id="info-{{ product.id }}" style="display: none;">
+                <td colspan="4">
+                    <p>Email: {{ product.contact_email }}</p>
+                    <p>Phone: {{ product.contact_phone }}</p>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 <script>
     function toggleInfo(productId) {
         var infoDiv = document.getElementById('info-' + productId);
         if (infoDiv.style.display === 'none') {
-            infoDiv.style.display = 'block';
+            infoDiv.style.display = '';
         } else {
             infoDiv.style.display = 'none';
         }

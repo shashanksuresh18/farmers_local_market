@@ -1,17 +1,18 @@
-/* Reset */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+/* CSS Variables */
+:root {
+    --main-font: Arial, sans-serif;
+    --main-bg-color: #f4f4f4;
+    --primary-color: #4caf50;
+    --secondary-color: #007BFF;
+    --text-color: #333;
+    --link-color: #0275d8;
+    --hover-link-color: #218838;
+    --container-bg-color: rgba(255, 255, 255, 0.8);
+    --container-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Basic Resets */
+* {
     margin: 0;
     padding: 0;
     border: 0;
@@ -20,146 +21,111 @@ time, mark, audio, video {
     vertical-align: baseline;
 }
 
-/* HTML5 display-role reset for older browsers */
+/* Element-specific Resets */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
 
 body {
+    font-family: var(--main-font);
+    background: url('/static/images/vendor.jpg') no-repeat center center fixed; 
+    background-size: cover;
+    color: var(--text-color);
     line-height: 1;
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
     margin: 0;
     padding: 20px;
 }
 
-ol, ul {
-    list-style: none;
-}
+ol, ul { list-style: none; }
+blockquote, q { quotes: none; }
+table { border-collapse: collapse; border-spacing: 0; }
 
-blockquote, q {
-    quotes: none;
-}
-
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content: '';
-    content: none;
-}
-
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-/* Global styles */
+/* Global Styles */
 a {
-    color: #0275d8;
+    color: var(--link-color);
     text-decoration: none;
 }
 
-a:hover {
-    text-decoration: underline;
-}
+a:hover { text-decoration: underline; }
 
-/* Header */
+/* Layout Components */
 header {
-    background-color: #007BFF;
-    color: #ffffff;
+    background-color: var(--secondary-color);
+    color: white;
     padding: 10px 20px;
     text-align: center;
     font-size: 24px;
 }
 
-/* Navigation */
 nav {
     background: #333;
-    color: #fff;
+    color: white;
     padding: 8px 16px;
     text-align: center;
 }
 
 nav a {
-    color: #fff;
+    color: white;
     padding: 8px 16px;
-    text-decoration: none;
     font-weight: bold;
 }
 
-nav a:hover {
-    background-color: #555;
-}
+nav a:hover { background-color: #555; }
 
-/* Main content area */
-main {
-    margin-top: 15px;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* Forms */
+/* Forms and Buttons */
 form {
     margin: 20px 0;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-textarea,
-select {
+input[type="text"], input[type="email"], input[type="password"], textarea, select {
     width: 100%;
     padding: 8px;
-    margin-top: 5px;
-    margin-bottom: 10px;
+    margin: 5px 0 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-input[type="submit"],
-button {
-    background-color: #28a745;
+button, input[type="submit"] {
+    background-color: var(--primary-color);
     color: white;
     padding: 10px 15px;
-    border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
 }
 
-input[type="submit"]:hover,
-button:hover {
-    background-color: #218838;
+button:hover, input[type="submit"]:hover {
+    background-color: var(--hover-link-color);
 }
 
-/* Footer */
-footer {
+/* Main Container */
+.container {
+    padding: 20px;
+    background-color: var(--container-bg-color);
+    border-radius: 8px;
+    box-shadow: var(--container-shadow);
+    margin: 50px auto;
+    width: 80%;
+    max-width: 960px;
     text-align: center;
-    padding: 12px 20px;
-    background-color: #007BFF;
-    color: #fff;
-    position: fixed;
-    left: 0;
-    bottom: 0;
+    position: relative;
+    padding-bottom: 50px;
+}
+
+/* Table Styles */
+table.table {
     width: 100%;
-}
-
-/* Utility classes */
-.text-center {
-    text-align: center;
-}
-
-.mt-20 {
-    margin-top: 20px;
-}
-
-.mb-20 {
+    background-color: #f9f9f9;
     margin-bottom: 20px;
 }
 
-.p-20 {
-    padding: 20px;
+th, td {
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
 }
