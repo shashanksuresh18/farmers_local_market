@@ -75,11 +75,13 @@ form {
 }
 
 input[type="text"], input[type="email"], input[type="password"], textarea, select {
-    width: 100%;
+    width: calc(100% - 16px); /* Adjust width of input fields */
     padding: 8px;
     margin: 5px 0 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    display: inline-block; /* Display input fields inline */
+    box-sizing: border-box; /* Include padding and border in width calculation */
 }
 
 button, input[type="submit"] {
@@ -89,6 +91,8 @@ button, input[type="submit"] {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    margin: 0 auto; /* Center align buttons */
+    display: block; /* Make buttons block elements */
 }
 
 button:hover, input[type="submit"]:hover {
@@ -96,12 +100,11 @@ button:hover, input[type="submit"]:hover {
 }
 
 /* Main Container */
-/* Container Styles */
 .container {
     padding: 20px;
-    background-color: #f4f4f4;
+    background-color: var(--container-bg-color);
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--container-shadow);
     margin: 50px auto;
     width: 80%;
     max-width: 960px;
@@ -116,6 +119,11 @@ button:hover, input[type="submit"]:hover {
     margin-bottom: 20px; /* Bottom margin for spacing */
 }
 
+.container h2 {
+    font-size: 26px; /* Adjust font size as needed */
+    color: #333; /* Text color */
+    margin-bottom: 20px; /* Bottom margin for spacing */
+}
 .container p {
     font-size: 18px; /* Adjust font size as needed */
     line-height: 1.5; /* Adjust line height for better readability */
@@ -189,4 +197,70 @@ th {
 
 .container .btn-danger:hover {
     background-color: #c82333;
+}
+
+/* Form Styles */
+form {
+    margin-top: 20px; /* Add spacing between container and form */
+    text-align: left; /* Align text to the left within the form */
+}
+
+.container .form-group {
+    margin-bottom: 20px; /* Add spacing between form groups */
+    display: flex; /* Display form groups as flex items */
+    align-items: center; /* Center align form elements vertically */
+}
+
+.container label {
+    font-weight: bold; /* Make labels bold */
+    display: inline-block; /* Ensure labels are displayed inline */
+    flex: 0 0 30%; /* Set label width */
+    margin-right: 10px; /* Add spacing between label and input field */
+}
+
+.container input[type="text"],
+.container input[type="email"],
+.container textarea,
+.container select {
+    flex: 0 0 70%; /* Set input width */
+    margin-right: 10px; /* Add spacing between input fields */
+}
+
+.btn-container .bb {
+    display: flex;
+    justify-content: center;
+}
+.container .btn-container {
+    text-align: center;
+    margin-top: 20px; /* Adjust spacing */
+}
+
+.btn-container .btn {
+    margin: 0 5px; /* Adjust button spacing */
+}
+
+.container form {
+    text-align: left; /* Align form elements to the left */
+}
+
+.container form .btn-container .btn {
+    margin: 0 5px; /* Adjust button spacing */
+}
+
+.container form .special-button {
+    display: block; /* Ensure it's a block element */
+    margin: 0 auto; /* Center-align the button */
+    margin-top: 20px; /* Add top margin for spacing */
+    padding: 10px 20px; /* Adjust padding */
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.container form .special-button:hover {
+    background-color: var(--hover-link-color);
 }
