@@ -11,11 +11,13 @@ app = Flask(__name__)
 # Database configuration
 # Encode special characters in your password
 username = 'admin'
-password = 'London@100'  # Example password with special character '@'
+password = 'London100'  # Example password with special character '@'
 encoded_password = quote_plus(password)
 
+rds_endpoint = 'farmers-local-market-instance-1.cfegiesaoabk.us-east-1.rds.amazonaws.com'
+
 # Construct the correct URI
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://{username}:{encoded_password}@10.77.217.227/farmers_local_market'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://{username}:{encoded_password}@{rds_endpoint}/farmers_local_market'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '\x98\x8ck\xcdpl}\x1f\x8f\x0e\x15\xd8\xdeC_\xff\xfd<r\xdb\x83\xc1\x08\x18'
 
@@ -205,7 +207,6 @@ def edit_vendor(vendor_id):
 @login_required
 def update_vendor(vendor_id):
     vendor = Vendor.query.get_or_404(vendor_id)
-    vendor.name = request.form['name']
     vendor.location = request.form['location']
     vendor.description = request.form['description']
     db.session.commit()
@@ -273,6 +274,14 @@ def edit_product(product_id):
         return redirect(url_for('vendor_home'))
     return render_template('edit_product.html', product=product)
 
+@app.route('/delete_product/<int:product_id>', methods=['POST'])
+@login_required
+def delete_product(product_id):
+    product = Product.query.get_or_404(product_id)
+    db.session.delete(product)
+    db.session.commit()
+    flash('Product deleted successfully!', 'success')
+    return redirect(url_for('vendor_home'))
 
 # @app.route('/dashboard')
 # def dashboard():
@@ -282,13 +291,14 @@ def edit_product(product_id):
 def error():
     return render_template('error.html')
 
-@app.route('/logout')
+@app.route('/logout', methods=['POST'])
 def logout():
     # Remove data from session, effectively logging the user out
     session.pop('user_id', None)
     session.pop('username', None)
+    session.clear()
     flash('You have been logged out.', 'success')
-    return redirect(url_for('home'))
+    return redirect(url_for('login'))
 
 # @app.route('/markets')
 # def markets():

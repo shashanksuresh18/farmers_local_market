@@ -32,7 +32,7 @@
             <input type="text" class="form-control" id="contact_phone" name="contact_phone" value="{{ product.contact_phone }}" required>
         </div>
         <button type="submit" class="btn btn-primary">Update Product</button>
-        <a href="{{ url_for('vendor_home') }}" class="btn btn-secondary">Cancel</a>
+        <button onclick="window.history.back();" class="btn btn-secondary">Cancel</button>
     </form>
 </div>
 {% endblock %}

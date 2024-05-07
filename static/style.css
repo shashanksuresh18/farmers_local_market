@@ -129,3 +129,36 @@ th {
     background-color: var(--primary-color);
     color: white;
 }
+
+.header-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.top-right-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px 20px;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.top-right-button:hover {
+    background-color: darken(var(--secondary-color), 10%);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
