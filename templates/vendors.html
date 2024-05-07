@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Vendors List
+{% endblock %}
+
+{% block header %}
+Our Vendors
+{% endblock %}
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if vendors %}
+            {% for vendor in vendors %}
+                <tr>
+                    <td>{{ vendor.name }}</td>
+                    <td>{{ vendor.location }}</td>
+                    <td>{{ vendor.description }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="3">No vendors found.</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+{% endblock %}

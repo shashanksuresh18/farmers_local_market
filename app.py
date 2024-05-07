@@ -207,6 +207,7 @@ def edit_vendor(vendor_id):
 @login_required
 def update_vendor(vendor_id):
     vendor = Vendor.query.get_or_404(vendor_id)
+    vendor.name = request.form['name']
     vendor.location = request.form['location']
     vendor.description = request.form['description']
     db.session.commit()
