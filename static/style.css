@@ -1,7 +1,7 @@
 /* CSS Variables */
 :root {
-    --main-font: Arial, sans-serif;
-    --main-bg-color: #f4f4f4;
+    --font-family: Arial, sans-serif;
+    --bg-color: #f4f4f4;
     --primary-color: #4caf50;
     --secondary-color: #007BFF;
     --text-color: #333;
@@ -11,45 +11,39 @@
     --container-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Basic Resets */
+/* Resets */
 * {
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
 }
 
-/* Element-specific Resets */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-    display: block;
+/* Basic Resets */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, form, input, textarea, button {
+    font: inherit;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    font-family: var(--main-font);
+    font-family: var(--font-family);
     background: url('/static/images/vendor.jpg') no-repeat center center fixed; 
     background-size: cover;
     color: var(--text-color);
-    line-height: 1;
-    margin: 0;
     padding: 20px;
 }
 
-ol, ul { list-style: none; }
-blockquote, q { quotes: none; }
-table { border-collapse: collapse; border-spacing: 0; }
-
-/* Global Styles */
+/* Links */
 a {
     color: var(--link-color);
     text-decoration: none;
 }
 
-a:hover { text-decoration: underline; }
+a:hover {
+    text-decoration: underline;
+}
 
-/* Layout Components */
+/* Header and Navigation */
 header {
     background-color: var(--secondary-color);
     color: white;
@@ -71,7 +65,9 @@ nav a {
     font-weight: bold;
 }
 
-nav a:hover { background-color: #555; }
+nav a:hover {
+    background-color: #555;
+}
 
 /* Forms and Buttons */
 form {
@@ -100,17 +96,48 @@ button:hover, input[type="submit"]:hover {
 }
 
 /* Main Container */
+/* Container Styles */
 .container {
     padding: 20px;
-    background-color: var(--container-bg-color);
+    background-color: #f4f4f4;
     border-radius: 8px;
-    box-shadow: var(--container-shadow);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 50px auto;
     width: 80%;
     max-width: 960px;
     text-align: center;
     position: relative;
     padding-bottom: 50px;
+}
+
+.container h1 {
+    font-size: 36px; /* Adjust font size as needed */
+    color: #333; /* Text color */
+    margin-bottom: 20px; /* Bottom margin for spacing */
+}
+
+.container p {
+    font-size: 18px; /* Adjust font size as needed */
+    line-height: 1.5; /* Adjust line height for better readability */
+    color: #555; /* Text color */
+    margin-bottom: 20px; /* Bottom margin for spacing */
+}
+
+.container .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.container .btn:hover {
+    background-color: #218838;
 }
 
 /* Table Styles */
@@ -130,6 +157,7 @@ th {
     color: white;
 }
 
+/* Additional Styles */
 .header-area {
     display: flex;
     justify-content: space-between;
@@ -137,7 +165,7 @@ th {
     position: relative;
 }
 
-.top-right-button {
+.container .top-right-button {
     position: absolute;
     right: 0;
     top: 0;
@@ -150,15 +178,15 @@ th {
     font-weight: bold;
 }
 
-.top-right-button:hover {
-    background-color: darken(var(--secondary-color), 10%);
+.container .top-right-button:hover {
+    background-color: blue;
 }
 
-.btn-danger {
+.container .btn-danger {
     background-color: #dc3545;
     color: white;
 }
 
-.btn-danger:hover {
+.container .btn-danger:hover {
     background-color: #c82333;
 }
