@@ -5,81 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vendor Dashboard</title>
     <link rel="stylesheet" href="/static/style.css">
-    <!-- <style>
-        /* Overall body styling with responsive background image */
-        body {
-            font-family: Arial, sans-serif;
-            background: url('/static/images/vendor.jpg') no-repeat center center fixed; 
-            background-size: cover;
-            color: #333;
-        }
-
-        /* Container styling */
-        .container {
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 50px auto;
-            width: 80%; /* Fixed width, you can adjust as needed */
-            max-width: 960px; /* Maximum width */
-            text-align: center; /* Center aligns all text */
-            position: relative; /* Added for absolute positioning inside */
-            padding-bottom: 50px; /* Increase padding to contain the button inside */
-        }
-
-        /* Header and titles */
-        h1, h3 {
-            color: #2c662d;
-            text-align: center; /* Ensures headers are centered */
-        }
-
-        /* Styling for buttons and links */
-        a.btn {
-            color: #ffffff;
-            background-color: #4caf50;
-            padding: 10px 20px; /* Button padding */
-            border-radius: 5px; /* Rounded corners for buttons */
-            text-decoration: none;
-            display: inline-block; /* Ensures proper spacing */
-            margin: 10px 0; /* Top and bottom margin for spacing */
-        }
-
-        .btn-secondary {
-            position: absolute;
-            right: 20px; /* Right align inside the container */
-            top: 20px; /* Position from the top */
-        }
-
-        .btn-success {
-            display: block; /* Makes the button a block element */
-            width: auto; /* Auto width based on content */
-            margin: 20px auto; /* Center and provide margin */
-        }
-
-        /* Table styling */
-        table.table {
-            width: 100%;
-            background-color: #f9f9f9;
-            border-collapse: collapse;
-            margin-bottom: 20px; /* Ensures space before the 'Add New Product' button */
-        }
-
-        th, td {
-            padding: 10px;
-            border-top: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #4caf50;
-            color: #ffffff;
-        }
-    </style> -->
 </head>
 <body>
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h1>Welcome, Vendor {{ user.username }}</h1>
+            <h1>Welcome, {{ user.username }}</h1>
             {% if not is_new_vendor and vendor %}
                 <a href="{{ url_for('edit_vendor', vendor_id=vendor.id) }}" class="btn btn-secondary top-right-button">Edit Your Details</a>
             {% endif %}
@@ -89,10 +19,9 @@
             <p>Welcome! It looks like you haven't set up your vendor profile yet.</p>
             <a href="{{ url_for('new_vendor') }}" class="btn btn-primary">Setup Your Vendor Profile</a>
         {% else %}
-            <p>This is your dashboard where you can manage your products, see your sales, and more.</p>
             {% if vendor %}
                 <div class="mt-4">
-                    <h3>Your Products</h3>
+                    <h2>Your Products</h2>
                     {% if vendor.products %}
                         <table class="table">
                             <thead>
@@ -121,12 +50,13 @@
                             </tbody>
                         </table>
                         <form action="{{ url_for('add_product', vendor_id=vendor.id) }}" method="get">
-                            <button type="submit" class="btn btn-success">Add New Product</button>
+                            <button type="submit" class="special-button">Add New Product</button>
                         </form>
                     {% else %}
                         <p>No products found. Add your first product!</p>
-                        <form action="{{ url_for('add_product', vendor_id=vendor.id) }}" method="get">
-                            <button type="submit" class="btn btn-success">Add New Product</button>
+                        <form action="{{ url_for('add_product', vendor_id=vendor.id) }}" method="get" class="btn-container">
+                            <button type="submit" class="special-button">Add New Product</button>
+
                         </form>
                     {% endif %}
                 </div>

@@ -1,7 +1,7 @@
 /* CSS Variables */
 :root {
-    --main-font: Arial, sans-serif;
-    --main-bg-color: #f4f4f4;
+    --font-family: Arial, sans-serif;
+    --bg-color: #f4f4f4;
     --primary-color: #4caf50;
     --secondary-color: #007BFF;
     --text-color: #333;
@@ -11,45 +11,39 @@
     --container-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Basic Resets */
+/* Resets */
 * {
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
 }
 
-/* Element-specific Resets */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-    display: block;
+/* Basic Resets */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, form, input, textarea, button {
+    font: inherit;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    font-family: var(--main-font);
+    font-family: var(--font-family);
     background: url('/static/images/vendor.jpg') no-repeat center center fixed; 
     background-size: cover;
     color: var(--text-color);
-    line-height: 1;
-    margin: 0;
     padding: 20px;
 }
 
-ol, ul { list-style: none; }
-blockquote, q { quotes: none; }
-table { border-collapse: collapse; border-spacing: 0; }
-
-/* Global Styles */
+/* Links */
 a {
     color: var(--link-color);
     text-decoration: none;
 }
 
-a:hover { text-decoration: underline; }
+a:hover {
+    text-decoration: underline;
+}
 
-/* Layout Components */
+/* Header and Navigation */
 header {
     background-color: var(--secondary-color);
     color: white;
@@ -71,7 +65,9 @@ nav a {
     font-weight: bold;
 }
 
-nav a:hover { background-color: #555; }
+nav a:hover {
+    background-color: #555;
+}
 
 /* Forms and Buttons */
 form {
@@ -79,11 +75,13 @@ form {
 }
 
 input[type="text"], input[type="email"], input[type="password"], textarea, select {
-    width: 100%;
+    width: calc(100% - 16px); /* Adjust width of input fields */
     padding: 8px;
     margin: 5px 0 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    display: inline-block; /* Display input fields inline */
+    box-sizing: border-box; /* Include padding and border in width calculation */
 }
 
 button, input[type="submit"] {
@@ -93,6 +91,8 @@ button, input[type="submit"] {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    margin: 0 auto; /* Center align buttons */
+    display: block; /* Make buttons block elements */
 }
 
 button:hover, input[type="submit"]:hover {
@@ -113,6 +113,41 @@ button:hover, input[type="submit"]:hover {
     padding-bottom: 50px;
 }
 
+.container h1 {
+    font-size: 36px; /* Adjust font size as needed */
+    color: #333; /* Text color */
+    margin-bottom: 20px; /* Bottom margin for spacing */
+}
+
+.container h2 {
+    font-size: 26px; /* Adjust font size as needed */
+    color: #333; /* Text color */
+    margin-bottom: 20px; /* Bottom margin for spacing */
+}
+.container p {
+    font-size: 18px; /* Adjust font size as needed */
+    line-height: 1.5; /* Adjust line height for better readability */
+    color: #555; /* Text color */
+    margin-bottom: 20px; /* Bottom margin for spacing */
+}
+
+.container .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.container .btn:hover {
+    background-color: #218838;
+}
+
 /* Table Styles */
 table.table {
     width: 100%;
@@ -130,6 +165,7 @@ th {
     color: white;
 }
 
+/* Additional Styles */
 .header-area {
     display: flex;
     justify-content: space-between;
@@ -137,7 +173,7 @@ th {
     position: relative;
 }
 
-.top-right-button {
+.container .top-right-button {
     position: absolute;
     right: 0;
     top: 0;
@@ -150,15 +186,81 @@ th {
     font-weight: bold;
 }
 
-.top-right-button:hover {
-    background-color: darken(var(--secondary-color), 10%);
+.container .top-right-button:hover {
+    background-color: blue;
 }
 
-.btn-danger {
+.container .btn-danger {
     background-color: #dc3545;
     color: white;
 }
 
-.btn-danger:hover {
+.container .btn-danger:hover {
     background-color: #c82333;
+}
+
+/* Form Styles */
+form {
+    margin-top: 20px; /* Add spacing between container and form */
+    text-align: left; /* Align text to the left within the form */
+}
+
+.container .form-group {
+    margin-bottom: 20px; /* Add spacing between form groups */
+    display: flex; /* Display form groups as flex items */
+    align-items: center; /* Center align form elements vertically */
+}
+
+.container label {
+    font-weight: bold; /* Make labels bold */
+    display: inline-block; /* Ensure labels are displayed inline */
+    flex: 0 0 30%; /* Set label width */
+    margin-right: 10px; /* Add spacing between label and input field */
+}
+
+.container input[type="text"],
+.container input[type="email"],
+.container textarea,
+.container select {
+    flex: 0 0 70%; /* Set input width */
+    margin-right: 10px; /* Add spacing between input fields */
+}
+
+.btn-container .bb {
+    display: flex;
+    justify-content: center;
+}
+.container .btn-container {
+    text-align: center;
+    margin-top: 20px; /* Adjust spacing */
+}
+
+.btn-container .btn {
+    margin: 0 5px; /* Adjust button spacing */
+}
+
+.container form {
+    text-align: left; /* Align form elements to the left */
+}
+
+.container form .btn-container .btn {
+    margin: 0 5px; /* Adjust button spacing */
+}
+
+.container form .special-button {
+    display: block; /* Ensure it's a block element */
+    margin: 0 auto; /* Center-align the button */
+    margin-top: 20px; /* Add top margin for spacing */
+    padding: 10px 20px; /* Adjust padding */
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.container form .special-button:hover {
+    background-color: var(--hover-link-color);
 }
