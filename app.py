@@ -15,7 +15,7 @@ password = 'London@100'  # Example password with special character '@'
 encoded_password = quote_plus(password)
 
 # Construct the correct URI
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://{username}:{encoded_password}@localhost/farmers_local_market'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://{username}:{encoded_password}@10.77.217.227/farmers_local_market'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '\x98\x8ck\xcdpl}\x1f\x8f\x0e\x15\xd8\xdeC_\xff\xfd<r\xdb\x83\xc1\x08\x18'
 
@@ -355,4 +355,4 @@ def test_db():
         return f'Error: {str(e)}', 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

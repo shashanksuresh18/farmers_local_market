@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=app.py
+    depends_on:
+      - db
+  db:
+    image: mysql:8.0.37  # Use mysql:latest if you want the latest version
+    environment:
+      MYSQL_DATABASE: 'farmers_local_market'  # Name of the database
+      MYSQL_USER: 'admin'           # Username you will use to access the database
+      MYSQL_PASSWORD: 'London@100'   # Password for accessing the database
+      MYSQL_ROOT_PASSWORD: 'London@100'  # Root password for MySQL
+    ports:
+      - "3306:3306"  # Maps port 3306 on the container to port 3306 on the host
+    volumes:
+      - mysql_data:/var/lib/mysql  # Persists database data
+
+volumes:
+  mysql_data:
